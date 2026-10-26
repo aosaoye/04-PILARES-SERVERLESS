@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Serverless TypeScript backend",
+  "main": "dist/hello.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "clean": "rimraf dist",
+    "typecheck": "tsc --noEmit",
+    "dev":"serverless offline start"
+  },
+  "keywords": [
+    "serverless",
+    "aws",
+    "lambda",
+    "typescript"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.164",
+    "@types/node": "^26.6.5",
+    "serverless": "4.45.0",
+    "serverless-offline": "14.8.4",
+    "typescript": "^7.0.2"
+  }
+}

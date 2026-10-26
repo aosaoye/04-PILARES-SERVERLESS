@@ -1,0 +1,27 @@
+service: backend-serverless
+
+frameworkVersion: ~4.45.0
+
+provider:
+  name: aws
+  runtime: nodejs22.x
+  region: us-east-1
+  stage: 'dev'
+plugins:
+  - serverless-offline
+
+package:
+  individually: true
+  patterns:
+    - '!**'
+    - 'dist/**'
+    - 'node_modules/**'
+
+functions:
+  hello:
+    handler: dist/hello.handler
+    events:
+      - http:
+          path: hello
+          method: get
+          cors: true
