@@ -16,6 +16,9 @@ pnpm-debug.log*
 .expo/
 web-build/
 
+# Build & export
+dist/
+
 # OS metadata
 .DS_Store
 Thumbs.db

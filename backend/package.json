@@ -8,7 +8,7 @@
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "typecheck": "tsc --noEmit",
-    "dev":"serverless offline start"
+    "dev": "serverless offline start"
   },
   "keywords": [
     "serverless",
@@ -24,5 +24,9 @@
     "serverless": "4.45.0",
     "serverless-offline": "14.8.4",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1158.0",
+    "@aws-sdk/lib-dynamodb": "^3.1158.0"
   }
 }

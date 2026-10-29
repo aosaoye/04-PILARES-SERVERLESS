@@ -7,15 +7,39 @@ provider:
   runtime: nodejs22.x
   region: us-east-1
   stage: 'dev'
+  iam:
+    role: arn:aws:iam::131146365662:role/LabRole
+  environment:
+    EVENTS_TABLE: ${self:service}-${self:provider.stage}-events
+
+
+resources:
+  Resources:
+    EventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:service}-${self:provider.stage}-events
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
 plugins:
   - serverless-offline
 
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    useInProcess: true
+    
 package:
   individually: true
   patterns:
     - '!**'
     - 'dist/**'
-    - 'node_modules/**'
 
 functions:
   hello:
@@ -24,4 +48,52 @@ functions:
       - http:
           path: hello
           method: get
+          cors: true
+
+  listEvents:
+    handler: dist/events/list.handler
+    events:
+      - http:
+          path: events
+          method: get
+          cors: true
+
+  getEvent:
+    handler: dist/events/get.handler
+    events:
+      - http:
+          path: events/{id}
+          method: get
+          cors: true
+
+  createEvent:
+    handler: dist/events/create.handler
+    events:
+      - http:
+          path: events
+          method: post
+          cors: true
+
+  replaceEvent:
+    handler: dist/events/replace.handler
+    events:
+      - http:
+          path: events/{id}
+          method: put
+          cors: true
+
+  updateEvent:
+    handler: dist/events/update.handler
+    events:
+      - http:
+          path: events/{id}
+          method: patch
+          cors: true
+
+  deleteEvent:
+    handler: dist/events/delete.handler
+    events:
+      - http:
+          path: events/{id}
+          method: delete
           cors: true
